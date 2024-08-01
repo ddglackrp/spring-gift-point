@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static gift.utils.FilterConstant.*;
+import static gift.utils.FilterConstant.SWAGGER_RESOURCES;
+
 public class FilterUtils {
 
     public static final String CODE = "401";
@@ -39,5 +42,20 @@ public class FilterUtils {
             return true;
         }
         return false;
+    }
+
+    public static boolean isUrlInWhiteList(String path){
+        return path.equals(HOME_URL)
+                || path.startsWith("/api/category")
+                || path.startsWith("/api/products")
+                || path.equals(KAKAO_TOKEN_RENEW_URL)
+                || path.startsWith(LOGIN_URL_PREFIX)
+                || path.startsWith(LOGIN_OAUTH_URL_PREFIX)
+                || path.startsWith(H2_DB_URL)
+                || path.equals(SWAGGER_UI_HTML)
+                || path.startsWith(SWAGGER_UI)
+                || path.startsWith(API_DOCS)
+                || path.startsWith(V3_API_DOCS)
+                || path.startsWith(SWAGGER_RESOURCES);
     }
 }
