@@ -8,7 +8,7 @@ public class FilterConstant {
     public final static String H2_DB_URL = "/h2-console";
     public final static String HOME_URL = "/home";
     public final static String KAKAO_TOKEN_RENEW_URL ="/oauth/renew/kakao";
-    public final static String NO_AUTHORIZATION_REDIRECT_URL = "https://react-deploy-2tb.pages.dev/login";
+    public final static String NO_AUTHORIZATION_REDIRECT_URL = "http://server.cla6sha.de/login";
     public final static String SWAGGER_UI_HTML = "/swagger-ui.html";
     public final static String SWAGGER_UI = "/swagger-ui";
     public final static String API_DOCS = "/api-docs";
