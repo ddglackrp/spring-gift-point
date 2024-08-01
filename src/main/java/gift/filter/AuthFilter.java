@@ -1,6 +1,5 @@
 package gift.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import gift.domain.AuthToken;
 import gift.repository.token.TokenRepository;
 import jakarta.servlet.*;
@@ -8,11 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
-import static gift.filter.FilterErrorResponse.*;
+import static gift.filter.FilterUtils.*;
 import static gift.utils.FilterConstant.*;
 
 public class AuthFilter implements Filter {
@@ -37,6 +34,9 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+        setCorsHeader(httpResponse);
+        if(checkOptionMethod(httpRequest, httpResponse)) return;
 
         String path = httpRequest.getRequestURI();
 
