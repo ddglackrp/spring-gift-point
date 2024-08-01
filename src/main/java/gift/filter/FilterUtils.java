@@ -28,7 +28,7 @@ public class FilterUtils {
     }
 
     public static void setCorsHeader(HttpServletResponse httpResponse){
-        httpResponse.setHeader("Access-Control-Allow-Origin", "http://server.cla6sha.de/"); // 모든 도메인 허용
+        httpResponse.setHeader("Access-Control-Allow-Origin", "*"); // 모든 도메인 허용
         httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         httpResponse.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
     }

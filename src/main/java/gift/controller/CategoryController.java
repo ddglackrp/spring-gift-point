@@ -7,11 +7,13 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+//@RestController
+@Controller
 @RequestMapping("/api/categories")
 public class CategoryController {
 
@@ -22,10 +24,12 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryResponseDto>> getCategories(){
+    public String getCategories(){
         List<CategoryResponseDto> categories = categoryService.findAllCategories();
-        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(categories);
+//        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(categories);
+        return "redirect:http://server.cla6sha.de/login";
     }
+
 
     @GetMapping("/{categoryId}")
     public ResponseEntity<CategoryResponseDto> getCategory(@PathVariable("categoryId") Long categoryId){
