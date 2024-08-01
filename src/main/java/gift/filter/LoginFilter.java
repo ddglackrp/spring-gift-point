@@ -1,6 +1,7 @@
 package gift.filter;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gift.domain.AuthToken;
 import gift.repository.token.TokenRepository;
 import jakarta.servlet.*;
@@ -8,8 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
+import static gift.filter.FilterErrorResponse.*;
 import static gift.utils.FilterConstant.NO_AUTHORIZATION_REDIRECT_URL;
 
 /**
@@ -50,7 +54,7 @@ public class LoginFilter implements Filter {
                 return;
             }
 
-            httpResponse.sendRedirect(NO_AUTHORIZATION_REDIRECT_URL);
+            sendErrorResponse(httpResponse, HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 

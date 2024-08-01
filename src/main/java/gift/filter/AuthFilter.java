@@ -1,5 +1,6 @@
 package gift.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gift.domain.AuthToken;
 import gift.repository.token.TokenRepository;
 import jakarta.servlet.*;
@@ -7,8 +8,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
+import static gift.filter.FilterErrorResponse.*;
 import static gift.utils.FilterConstant.*;
 
 public class AuthFilter implements Filter {
@@ -52,20 +56,18 @@ public class AuthFilter implements Filter {
         String authHeader = httpRequest.getHeader("Authorization");
 
         if (authHeader == null || authHeader.isEmpty()){
-            httpResponse.sendRedirect(NO_AUTHORIZATION_REDIRECT_URL);
+            sendErrorResponse(httpResponse, HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
         Optional<AuthToken> token = tokenRepository.findAuthTokenByToken(authHeader.substring(7));
 
         if (token.isEmpty()){
-            httpResponse.sendRedirect(NO_AUTHORIZATION_REDIRECT_URL);
+            sendErrorResponse(httpResponse, HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
         httpRequest.setAttribute("AuthToken",token.get());
         filterChain.doFilter(request, response);
     }
-
-
 }
